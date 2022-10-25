@@ -1,0 +1,39 @@
+{
+  "name": "imi/shopware6-category-duplicator",
+  "description": "Duplicates a full category subtree",
+  "type": "shopware-platform-plugin",
+  "authors": [
+    {
+      "name": "iMi digital GmbH"
+    }
+  ],
+  "require": {
+    "shopware/core": "~6.4"
+  },
+  "license": "AGPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "iMidiCategoryDuplicator\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "iMidiCategoryDuplicator\\iMidiCategoryDuplicator",
+    "copyright": "iMi digital GmbH",
+    "label": {
+      "de-DE": "iMidiCategoryDuplicator",
+      "en-GB": "iMidiCategoryDuplicator"
+    },
+    "description": {
+      "de-DE": "Duplicates a full category subtree",
+      "en-GB": "Duplicates a full category subtree"
+    },
+    "manufacturerLink": {
+        "de-DE": "https://www.imi-digital.de/de/",
+        "en-GB": "https://www.imi-digital.de/en/"
+    },
+    "supportLink": {
+      "de-DE": "https://acme.org",
+      "en-GB": "https://acme.org"
+    }
+  }
+}
