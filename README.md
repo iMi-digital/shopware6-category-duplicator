@@ -2,6 +2,8 @@
 
 Shopware 6 extension to full category subtrees.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/iMi-digital/shopware6-category-duplicator)
+
 ## Installation
 
 ```
