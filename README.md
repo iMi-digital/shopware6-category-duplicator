@@ -1,6 +1,6 @@
-# shopware6-category-duplicator
+# Shopware 6 Category Duplicator
 
-This is work in progress.
+Shopware 6 extension to full category subtrees.
 
 ## Installation
 
@@ -20,3 +20,12 @@ bin/console plugin:install -a iMidiCategoryDuplicator
 SEO Urls are not generated for the copied category. Please use `/admin#/sw/settings/cache/index` to rebuild the SEO URL indices, once you have configured / moved the copied categories.
 
 For known issues, check the issues page.
+
+
+## About Us
+
+iMi digital GmbH offers Shopware related open source modules. If you are confronted with any bugs, you may want to open an issue here.
+
+In need of support or an implementation of a modul in an existing system, free to contact us. In this case, we will provide full service support for a fee.
+
+Of course we provide development of closed-source modules and full Shopware 6 shops as well.
