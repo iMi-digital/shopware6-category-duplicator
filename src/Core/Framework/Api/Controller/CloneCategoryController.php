@@ -39,8 +39,8 @@ class CloneCategoryController extends AbstractController
         $originalCategory = $this->categoryRepository->search(new Criteria([$categoryId]), $context)->first();
 
         $cloneBehavior = new CloneBehavior([
-            'afterCategoryId' => null, // FIXME: Kind of random insert position, needs reorder of the tree
-            'name' => $originalCategory->getName() . ' - Copy', // FIXME: use admin translation $this->translator->trans('global.default.copy')?
+            'afterCategoryId' => null, // FIXME: Kind of random insert position, needs reorder of the tree, see https://github.com/iMi-digital/shopware6-category-duplicator/issues/1
+            'name' => $originalCategory->getName() . ' - Copy', // FIXME: use admin translation $this->translator->trans('global.default.copy')? see https://github.com/iMi-digital/shopware6-category-duplicator/issues/4
             'parentId' => $originalCategory->getParentId(),
         ], false);
         $this->categoryRepository->clone($categoryId, $context, $newId, $cloneBehavior);
