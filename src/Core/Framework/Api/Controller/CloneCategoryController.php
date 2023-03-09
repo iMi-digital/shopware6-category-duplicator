@@ -41,7 +41,7 @@ class CloneCategoryController extends AbstractController
 
         $originalCategory = $this->categoryRepository->search(new Criteria([$categoryId]), $context)->first();
 
-        $cloneBehavior = $this->getCloneBehavior(null, $originalCategory->getName()  . ' - Copy', $originalCategory->getParentId(), true);
+        $cloneBehavior = $this->getCloneBehavior(null, $originalCategory->getName()  . ' - Copy', $originalCategory->getParentId());
 
         $this->categoryRepository->clone($categoryId, $context, $newId, $cloneBehavior);
         $this->cloneChildren($categoryId, $newId, $context);
@@ -84,7 +84,9 @@ class CloneCategoryController extends AbstractController
             $behavior['name'] = $categoryName;// FIXME: use admin translation $this->translator->trans('global.default.copy')? see https://github.com/iMi-digital/shopware6-category-duplicator/issues/4
         }
 
-        $behavior[] = ['products' => $this->systemConfigService->get('iMidiCategoryDuplicator.config.cloneProductCategories')];
+        if(!$this->systemConfigService->get('iMidiCategoryDuplicator.config.cloneProductCategories')) {
+            $behavior['products'] = null;
+        }
 
         $cloneBehavior = new CloneBehavior($behavior, false);
 
