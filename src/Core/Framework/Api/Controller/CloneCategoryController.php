@@ -9,6 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\CloneBehavior;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +23,13 @@ class CloneCategoryController extends AbstractController
 {
     private EntityRepository $categoryRepository;
     private TranslatorInterface $translator;
+    private SystemConfigService $systemConfigService;
 
-    public function __construct(EntityRepository $categoryRepository, TranslatorInterface $translator)
+    public function __construct(EntityRepository $categoryRepository, TranslatorInterface $translator, SystemConfigService $systemConfigService)
     {
         $this->categoryRepository = $categoryRepository;
         $this->translator = $translator;
+        $this->systemConfigService = $systemConfigService;
     }
 
     /**
@@ -38,11 +41,8 @@ class CloneCategoryController extends AbstractController
 
         $originalCategory = $this->categoryRepository->search(new Criteria([$categoryId]), $context)->first();
 
-        $cloneBehavior = new CloneBehavior([
-            'afterCategoryId' => null, // FIXME: Kind of random insert position, needs reorder of the tree, see https://github.com/iMi-digital/shopware6-category-duplicator/issues/1
-            'name' => $originalCategory->getName() . ' - Copy', // FIXME: use admin translation $this->translator->trans('global.default.copy')? see https://github.com/iMi-digital/shopware6-category-duplicator/issues/4
-            'parentId' => $originalCategory->getParentId(),
-        ], false);
+        $cloneBehavior = $this->getCloneBehavior(null, $originalCategory->getName()  . ' - Copy', $originalCategory->getParentId());
+
         $this->categoryRepository->clone($categoryId, $context, $newId, $cloneBehavior);
         $this->cloneChildren($categoryId, $newId, $context);
 
@@ -64,10 +64,7 @@ class CloneCategoryController extends AbstractController
 
         $previousId = null;
         foreach ($children as $child) {
-            $cloneBehavior = new CloneBehavior([
-                'parentId' => $newParentId,
-                'afterCategoryId' => $previousId,
-            ], false);
+            $cloneBehavior = $this->getCloneBehavior($previousId, null, $newParentId);
 
             $newId = Uuid::randomHex();
             $this->categoryRepository->clone($child->getId(), $context, $newId, $cloneBehavior);
@@ -75,5 +72,24 @@ class CloneCategoryController extends AbstractController
 
             $previousId = $newId;
         }
+    }
+
+    private function getCloneBehavior(?string $afterCategoryId, ?string $categoryName, ?string $categoryParentId): CloneBehavior
+    {
+        $behavior = [];
+        $behavior['afterCategoryId'] = $afterCategoryId; // FIXME: Kind of random insert position, needs reorder of the tree, see https://github.com/iMi-digital/shopware6-category-duplicator/issues/1
+        $behavior['parentId'] = $categoryParentId;
+
+        if($categoryName !== null) {
+            $behavior['name'] = $categoryName;// FIXME: use admin translation $this->translator->trans('global.default.copy')? see https://github.com/iMi-digital/shopware6-category-duplicator/issues/4
+        }
+
+        if(!$this->systemConfigService->get('iMidiCategoryDuplicator.config.cloneProductCategories')) {
+            $behavior['products'] = null;
+        }
+
+        $cloneBehavior = new CloneBehavior($behavior, false);
+
+        return $cloneBehavior;
     }
 }
