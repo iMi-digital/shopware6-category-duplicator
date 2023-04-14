@@ -13,5 +13,13 @@
             <helpText>If active, products with to-be-cloned category assigned will be assigned cloned categories as well.</helpText>
             <helpText lang="de-DE">Wenn aktiv werden Produkte mit zu klonender Kategorie die geklonte Kategorie zugeordnet.</helpText>
         </input-field>
+
+        <input-field type="checkbox">
+            <name>cloneCustomFields</name>
+            <label>Clone category custom fields association</label>
+            <label lang="de-DE">Kategorie Custom Field Assoziationen Klonen</label>
+            <helpText>If active, cloned categories will inherit assigned custom fields.</helpText>
+            <helpText lang="de-DE">Wenn aktiv behalten die geklonten Kategorien die Custom Fields der ursprünglichen Kategorie.</helpText>
+        </input-field>
     </card>
 </config>
