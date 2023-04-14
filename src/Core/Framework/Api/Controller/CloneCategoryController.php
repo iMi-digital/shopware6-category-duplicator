@@ -87,6 +87,9 @@ class CloneCategoryController extends AbstractController
         if(!$this->systemConfigService->get('iMidiCategoryDuplicator.config.cloneProductCategories')) {
             $behavior['products'] = null;
         }
+        if(!$this->systemConfigService->get('iMidiCategoryDuplicator.config.cloneCustomFields')) {
+            $behavior['customFields'] = null;
+        }
 
         $cloneBehavior = new CloneBehavior($behavior, false);
 
