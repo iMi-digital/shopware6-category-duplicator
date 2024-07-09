@@ -13,12 +13,10 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => 'api'])]
 class CloneCategoryController extends AbstractController
 {
     private EntityRepository $categoryRepository;
@@ -32,9 +30,7 @@ class CloneCategoryController extends AbstractController
         $this->systemConfigService = $systemConfigService;
     }
 
-    /**
-     * @Route("/api/_admin/imidi-category-duplicator/clone-category/{categoryId}", name="api.admin.imidi-category-duplicator.clone-category", methods={"POST"})
-     */
+    #[Route(path: '/api/_admin/imidi-category-duplicator/clone-category/{categoryId}', name: 'api.admin.imidi-category-duplicator.clone-category', methods: ['POST'])]
     public function cloneCategory(string $categoryId, Request $request, Context $context): JsonResponse
     {
         $newId = Uuid::randomHex();
