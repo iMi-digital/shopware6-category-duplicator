@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "shopware/core": "~6.6"
+    "shopware/core": "~6.6.0"
   },
   "license": "AGPL-3.0-or-later",
   "autoload": {
