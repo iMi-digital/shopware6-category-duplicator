@@ -14,10 +14,10 @@ bin/console plugin:install -a iMidiCategoryDuplicator
 
 ## Version Support
 
-* For Shopware 6.4 use the latest 1.x Version
-* For Shopware 6.6 use the latest 3.x Version
+* For Shopware 6.4 use the latest 2.x Version
+* For Shopware 6.6 use the latest 4.x Version
 
-We currently do not plan support for Shopware 6.5 - we spare out the 2.x versions, in case anyone wants to add support. 
+We currently do not plan support for Shopware 6.5 - we spare out the 3.x versions, in case anyone wants to add support. 
 
 ## How To Use
 
