@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route(defaults: ['_routeScope' => 'api'])]
+#[Route(defaults: ['_routeScope' => ['api']])]
 class CloneCategoryController extends AbstractController
 {
     private EntityRepository $categoryRepository;
