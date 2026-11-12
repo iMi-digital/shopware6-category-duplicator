@@ -1,0 +1,20 @@
+# Claude Code local files
+.claude.md
+.claude/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer
+/vendor/
+
+# PHP
+*.cache
+*.log
